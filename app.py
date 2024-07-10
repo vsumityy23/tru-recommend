@@ -93,7 +93,16 @@ elif mode == 'Client Mode':
     st.subheader("Get the suitable students for your projects")
     with st.spinner('Loading....'):
         projects_name = pd.read_pickle('./embedding_pickelfile/projects_with_embeddings.pkl')['Project_Name'].tolist()
-        selected_project = st.selectbox("Choose Project",projects_name)
+        selected_project = st.selectbox("Choose Project",projects_name,index=None,placeholder="Select Project...")
+        project_str=st.text_area("Or ",placeholder="Write your project description...")
+        
+        if (selected_project==None):
+            selected_project=project_str
+        
+        elif(project_str==None):
+            selected_project=project_str
+        else:
+            selected_project=selected_project+project_str 
         
     model_name = st.radio("Select Model", ('Bert', 'GPT2', 'Roberta'), index=0)
         
